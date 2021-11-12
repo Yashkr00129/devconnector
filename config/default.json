@@ -1,4 +1,7 @@
 {
   "MONGO_URI": "mongodb+srv://Yashkr00129:Yashkr00129@dev-connector.h3qcs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  "jwtSecret": "mysecrettoken"
+  "jwtSecret": "mysecrettoken",
+  "githubClientId":"a187afab46469a127015",
+  "githubSecret":"f793e09f4b5956e37e7daa021a97b5819e506aa2",
+  "githubToken":"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"
 }
