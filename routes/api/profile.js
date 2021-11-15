@@ -10,7 +10,6 @@ const config = require("config");
 // @route  GET api/profile/me
 // @desc   Get Current Users profile
 // access  Private
-
 router.get("/me", auth, async (req, res) => {
   try {
     // Whereever we have used auth middleware it gives us access to req.user.id
@@ -31,9 +30,8 @@ router.get("/me", auth, async (req, res) => {
 });
 
 // @route  POST api/profile
-// @desc   Create of update user profile
+// @desc   Create or update user profile
 // access  Private
-
 router.post(
   "/",
   [
@@ -108,7 +106,6 @@ router.post(
 // @route  GET api/profile
 // @desc   Get all profiles
 // access  Public
-
 router.get("/", async (req, res) => {
   try {
     const profiles = await Profile.find().populate("user", ["name", "avatar"]);
@@ -122,7 +119,6 @@ router.get("/", async (req, res) => {
 // @route  GET api/profile/user/:user_id
 // @desc   Get profile by user id
 // access  Public
-
 router.get("/user/:user_id", async (req, res) => {
   try {
     const profile = await Profile.findOne({
@@ -144,7 +140,6 @@ router.get("/user/:user_id", async (req, res) => {
 // @route  Delete api/profile
 // @desc   Delete profile , user & posts
 // access  Private
-
 router.delete("/", auth, async (req, res) => {
   try {
     // TODO- Remove users posts
@@ -217,6 +212,7 @@ router.delete("/experience/:exp_id", auth, async (req, res) => {
     res.status(500).json({ msg: "Server Error" });
   }
 });
+
 // @route  PUT api/profile/education
 // @desc   Add profile Education
 // access  Private
@@ -259,7 +255,7 @@ router.put(
   }
 );
 
-// @route  DELETE api/profile/education/:exp_id
+// @route  DELETE api/profile/education/:edu_id
 // @desc   Remove profile education
 // access  Private
 router.delete("/education/:edu_id", auth, async (req, res) => {
@@ -281,7 +277,6 @@ router.delete("/education/:edu_id", auth, async (req, res) => {
 // @route  GET api/profile/github/:username
 // @desc   Get user repos from github
 // access  Public
-
 router.get("/github/:username", async (req, res) => {
   try {
     const uri = encodeURI(

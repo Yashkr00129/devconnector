@@ -8,8 +8,8 @@ const config = require("config");
 const bcrypt = require("bcryptjs");
 
 // @route  GET api/auth
-// @desc   Test Route
-// access  Public
+// @desc   Gives single user from jwt-token
+// access  Private
 router.get("/", auth, async (req, res) => {
   try {
     // req.user.id exists due to middleware
@@ -21,8 +21,8 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-// @route  GET api/users
-// @desc   Register User
+// @route  POST api/auth
+// @desc   Login User
 // access  Public
 router.post(
   "/",

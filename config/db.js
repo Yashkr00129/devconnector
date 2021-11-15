@@ -13,3 +13,4 @@ const connectDB = () => {
 };
 
 module.exports = connectDB;
+// Fuck off
