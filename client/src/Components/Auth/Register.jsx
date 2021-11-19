@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import Alert from "../Layout/Alert";
+import { setAlert } from "../../Store/Actions/alert";
+import { useSelector } from "react-redux";
+import { register } from "../../Store/Actions/auth";
 
 export const Register = () => {
+  const alerts = useSelector((state) => state.alert);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,13 +18,25 @@ export const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (password !== password2) console.log("Passwords do Not Match");
-    else console.log("Success");
+    if (password !== password2) {
+      setAlert("Passwords do not match", "FAILED");
+      setFormData({
+        name,
+        email,
+        password: "",
+        password2: "",
+      });
+    } else {
+      register({ name, email, password });
+    }
   };
   return (
     <section className="container">
+      {alerts.length > 0
+        ? alerts.map((alert) => <Alert msg={alert.msg} />)
+        : null}
       <h1 className="large text-primary">Sign Up</h1>
-      <p className="lead"> 
+      <p className="lead">
         <i className="fas fa-user"></i> Create Your Account
       </p>
       <form className="form" onSubmit={(e) => onSubmit(e)}>
