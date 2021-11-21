@@ -14,6 +14,7 @@ router.get("/", auth, async (req, res) => {
   try {
     // req.user.id exists due to middleware
     const user = await User.findById(req.user.id).select("-password");
+    if(!user) res.status(404).json({msg:"User Does not exist"})
     res.json(user);
   } catch (error) {
     console.error(err.message);

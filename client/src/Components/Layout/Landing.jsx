@@ -1,7 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const Landing = () => {
+  const auth = useSelector((state) => state.auth);
+  if (auth.isAuthenticated === true) {
+    return <Navigate to="/developers" />;
+  }
+
   return (
     <section className="landing">
       <div className="dark-overlay">

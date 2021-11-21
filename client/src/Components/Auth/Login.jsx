@@ -1,7 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { login } from "../../Store/Actions/auth";
+import { loadUser } from "../../Store/Actions/auth";
+import { useSelector } from "react-redux";
+import Alert from "../Layout/Alert";
 
 export const Login = () => {
+  const auth = useSelector((state) => state.auth);
+  const alerts = useSelector((state) => state.alert);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -11,10 +18,22 @@ export const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("Success");
+    try {
+      await login(email, password);
+      await loadUser();
+    } catch (err) {
+      console.error(err.message);
+    }
   };
+  if (auth.isAuthenticated === true) {
+    return <Navigate to="/dashboard" />;
+  }
+
   return (
     <section className="container">
+      {alerts.length > 0
+        ? alerts.map((alert) => <Alert msg={alert.msg} />)
+        : null}
       <h1 className="large text-primary">Sign In</h1>
       <p className="lead">
         <i className="fas fa-user"></i> Sign In To Account

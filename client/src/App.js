@@ -8,6 +8,7 @@ import { Login } from "./Components/Auth/Login.jsx";
 import { loadUser } from "./Store/Actions/auth";
 import setAuthToken from "./utils/setAuthToken";
 
+
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }

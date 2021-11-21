@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Alert from "../Layout/Alert";
 import { setAlert } from "../../Store/Actions/alert";
 import { useSelector } from "react-redux";
 import { register } from "../../Store/Actions/auth";
+import { loadUser } from "../../Store/Actions/auth";
 
 export const Register = () => {
   const alerts = useSelector((state) => state.alert);
+  const auth = useSelector((state) => state.auth);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -28,8 +31,13 @@ export const Register = () => {
       });
     } else {
       register({ name, email, password });
+      loadUser();
     }
   };
+  if (auth.isAuthenticated === true) {
+    return <Navigate to="/dashboard" />;
+  }
+
   return (
     <section className="container">
       {alerts.length > 0

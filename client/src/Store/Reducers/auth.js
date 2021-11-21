@@ -52,13 +52,53 @@ const authSlice = createSlice({
       state = newState;
       return state;
     },
+    LOGIN_SUCCESS(state, action) {
+      localStorage.setItem("token", action.payload.token);
+      const newState = {
+        ...state,
+        ...action.payload,
+        isAuthenticated: true,
+        loading: false,
+      };
+      state = newState;
+      return state;
+    },
+    LOGIN_FAIL(state, action) {
+      localStorage.removeItem("token");
+      const newState = {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+      };
+      state = newState;
+      return state;
+    },
+    LOG_OUT(state, action) {
+      localStorage.removeItem("token");
+      const newState = {
+        token: null,
+        isAuthenticated: null,
+        loading: true,
+        user: null,
+      };
+      state = newState;
+      return state;
+    },
   },
 });
 
 // Extract the action creators object and the reducer
 const { actions, reducer } = authSlice;
 // Extract and export each action creator by name
-export const { REGISTER_FAIL, REGISTER_SUCCESS, AUTH_ERROR, USER_LOADED } =
-  actions;
+export const {
+  REGISTER_FAIL,
+  REGISTER_SUCCESS,
+  AUTH_ERROR,
+  USER_LOADED,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOG_OUT,
+} = actions;
 // Export the reducer, either as a default or named export
 export default reducer;
