@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { logOut } from "../../Store/Actions/auth";
 
 export const Navbar = () => {
   const auth = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   return (
     <nav className="navbar bg-dark">
       <h1>
@@ -14,7 +15,7 @@ export const Navbar = () => {
       </h1>
       <ul>
         <li>
-          <Link to="">Developers</Link>
+          <Link to="/developers">Developers</Link>
         </li>
         {auth.isAuthenticated !== true ? (
           <>
@@ -35,7 +36,13 @@ export const Navbar = () => {
               <Link to="/profile">Profile</Link>
             </li>
             <li>
-              <a onClick={logOut} href="#!">
+              <a
+                onClick={() => {
+                  logOut();
+                  navigate("/")
+                }}
+                href="/"
+              >
                 {" "}
                 <i className="fas fa-sign-out-alt"></i>{" "}
                 <span className="hide-sm">Log Out</span>

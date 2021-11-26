@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 export const Landing = () => {
   const auth = useSelector((state) => state.auth);
   if (auth.isAuthenticated === true) {
-    return <Navigate to="/developers" />;
+    return <Navigate to="/dashboard" />;
   }
 
   return (

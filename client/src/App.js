@@ -7,7 +7,8 @@ import { Register } from "./Components/Auth/Register.jsx";
 import { Login } from "./Components/Auth/Login.jsx";
 import { loadUser } from "./Store/Actions/auth";
 import setAuthToken from "./utils/setAuthToken";
-
+import Dashboard from "./Components/Layout/Dashboard/Dashboard";
+import CreateProfile from "./Components/Profile-form/CreateProfile.jsx";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -23,6 +24,8 @@ function App() {
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/login" element={<Login />} />
+        <Route exact path="/create-profile" element={<CreateProfile />} />
+        <Route exact path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );

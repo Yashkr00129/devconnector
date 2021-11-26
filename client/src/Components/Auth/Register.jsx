@@ -30,8 +30,8 @@ export const Register = () => {
         password2: "",
       });
     } else {
-      register({ name, email, password });
-      loadUser();
+      await register({ name, email, password });
+      await loadUser();
     }
   };
   if (auth.isAuthenticated === true) {
