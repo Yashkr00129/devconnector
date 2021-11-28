@@ -10,6 +10,7 @@ import setAuthToken from "./utils/setAuthToken";
 import Dashboard from "./Components/Layout/Dashboard/Dashboard";
 import CreateProfile from "./Components/Profile-form/CreateProfile.jsx";
 import AddExperience from "./Components/Profile-form/AddExperience"
+import AddEducation from "./Components/Profile-form/AddEducation"
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/create-profile" element={<CreateProfile />} />
         <Route exact path="/dashboard" element={<Dashboard />} />
         <Route exact path="/add-experience" element={<AddExperience />} />
+        <Route exact path="/add-education" element={<AddEducation />} />
       </Routes>
     </Router>
   );

@@ -181,7 +181,7 @@ router.put(
       from,
       to,
       current,
-      description
+      description,
     };
     try {
       const profile = await Profile.findOne({ user: req.user.id });
@@ -225,7 +225,7 @@ router.put(
       check("school", "school is required").not().isEmpty(),
       check("degree", "Degree is required").not().isEmpty(),
       check("from", "From date is required").not().isEmpty(),
-      check("feildofstufy", "Feild of Study is required").not().isEmpty(),
+      check("fieldofstudy", "Feild of Study is required").not().isEmpty(),
     ],
   ],
   async (req, res) => {
@@ -233,12 +233,12 @@ router.put(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { school, degree, feildofstudy, from, to, current, description } =
+    const { school, degree, fieldofstudy, from, to, current, description } =
       req.body;
     const newEdu = {
       school,
       degree,
-      feildofstudy,
+      fieldofstudy,
       from,
       to,
       current,

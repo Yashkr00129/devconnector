@@ -3,10 +3,13 @@ import { addExperience } from "../../Store/Actions/profile";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import Spinner from "../Layout/Spinner";
+import { setAlert } from "../../Store/Actions/alert";
+import Alert from "../Layout/Alert";
 
 export default function AddExperience() {
   const auth = useSelector((state) => state.auth);
   const profile = useSelector((state) => state.profile);
+  const alerts = useSelector((state) => state.alert);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
@@ -15,10 +18,10 @@ export default function AddExperience() {
     from: "",
     to: "",
     description: "",
+    current: false,
   });
-  const [current, toggleCurrent] = useState(false);
 
-  const { title, company, location, from, to, description } = formData;
+  const { title, company, location, from, to, description, current } = formData;
   const data = {
     title,
     company,
@@ -36,7 +39,9 @@ export default function AddExperience() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      addExperience(data);
+      await addExperience(data);
+      await setAlert("Profile Updated", "SUCCESS");
+      await navigate("/");
     } catch (e) {}
   };
 
@@ -99,7 +104,7 @@ export default function AddExperience() {
               type="checkbox"
               name="current"
               value={current}
-              onChange={() => toggleCurrent(!current)}
+              onChange={() => setFormData({ ...formData, current: !current })}
             />{" "}
             Current Job
           </p>
@@ -124,7 +129,10 @@ export default function AddExperience() {
             value={description}
             onChange={(e) => onChange(e)}
           ></textarea>
-        </div>
+        </div>{" "}
+        {alerts.map((alert) => (
+          <Alert msg={alert.msg} key={alert.id} />
+        ))}
         <input type="submit" className="btn btn-primary my-1" />
         <a className="btn btn-light my-1" href="/dashboard">
           Go Back
