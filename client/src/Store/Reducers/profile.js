@@ -49,6 +49,15 @@ const profileSlice = createSlice({
       state = newState;
       return state;
     },
+    UPDATE_PROFILE(state, action) {
+      const newState = {
+        ...state,
+        currentUserProfile:action.payload,
+        loading: false,
+      };
+      state = newState;
+      return state;
+    }
   },
 });
 

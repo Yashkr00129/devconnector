@@ -52,3 +52,55 @@ export const createProfile = async (formData, edit) => {
     }
   }
 };
+
+// Add experience
+export const addExperience =async(formData) => {
+     try {
+       const config = {
+         headers: {
+           "Content-Type": "application/json",
+         },
+       };
+       const res = await axios.put("api/profile/experience", formData, config);
+       await dispatch(profileActions.UPDATE_PROFILE(res.data));
+       await setAlert("Profile Updated");
+     } catch (error) {
+       dispatch(
+         profileActions.PROFILE_ERROR({
+           msg: error.response.statusText,
+           status: error.response.status,
+         })
+       );
+       const errors = error.response.data.errors;
+       if (errors) {
+         errors.forEach((error) => setAlert(error.msg, "FAIL"));
+       }
+     }
+
+}
+
+// Add education
+export const addEducation =async(formData) => {
+     try {
+       const config = {
+         headers: {
+           "Content-Type": "application/json",
+         },
+       };
+       const res = await axios.put("api/profile/education", formData, config);
+       await dispatch(profileActions.UPDATE_PROFILE(res.data));
+       await setAlert("Profile Updated");
+     } catch (error) {
+       dispatch(
+         profileActions.PROFILE_ERROR({
+           msg: error.response.statusText,
+           status: error.response.status,
+         })
+       );
+       const errors = error.response.data.errors;
+       if (errors) {
+         errors.forEach((error) => setAlert(error.msg, "Invalid Credentials"));
+       }
+     }
+
+}

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { createProfile } from "../../Store/Actions/profile";
+import { setAlert } from "../../Store/Actions/alert";
 import Alert from "../Layout/Alert";
-import { useNavigate } from "react-router";
 import Spinner from "../Layout/Spinner";
 
 export default function CreateProfile() {
@@ -10,8 +11,6 @@ export default function CreateProfile() {
   const alerts = useSelector((state) => state.alert);
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  const current = { ...profile.currentUserProfile };
-  console.log(current);
   if (auth.isAuthenticated !== true) {
     navigate("/login");
   }
@@ -39,16 +38,21 @@ export default function CreateProfile() {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    createProfile(
-      { ...formData, skills: skills.toString() },
-      profile.currentUserProfile === false ||
-        profile.currentUserProfile === null
-        ? false
-        : true
-    );
-    setTimeout(() => navigate("/dashboard"), 3000);
+    if (skills === undefined && status === undefined) {
+      setAlert("Skills and Status are required", "FAIL");
+      return;
+    } else {
+      await createProfile(
+        { ...formData, skills: skills.toString() },
+        profile.currentUserProfile === false ||
+          profile.currentUserProfile === null
+          ? false
+          : true
+      );
+      await navigate("/dashboard");
+    }
   };
 
   return (

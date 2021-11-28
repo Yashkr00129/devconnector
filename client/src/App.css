@@ -44,6 +44,10 @@ img {
   margin-top: 6rem;
   margin-bottom: 3rem;
 }
+.w-20 {
+  max-width: 20rem;
+}
+
 .gradient {
   background: rgb(23, 162, 184);
   background: linear-gradient(
