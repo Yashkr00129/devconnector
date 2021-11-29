@@ -77,9 +77,22 @@ const authSlice = createSlice({
     LOG_OUT(state, action) {
       localStorage.removeItem("token");
       const newState = {
+        ...state,
         token: null,
         isAuthenticated: null,
-        loading: true,
+        loading: false,
+        user: null,
+      };
+      state = newState;
+      return state;
+    },
+    ACCOUNT_DELETED(state, action) {
+      localStorage.removeItem("token");
+      const newState = {
+        ...state,
+        token: null,
+        isAuthenticated: null,
+        loading: false,
         user: null,
       };
       state = newState;
@@ -99,6 +112,7 @@ export const {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOG_OUT,
+  ACCOUNT_DELETED,
 } = actions;
 // Export the reducer, either as a default or named export
 export default reducer;

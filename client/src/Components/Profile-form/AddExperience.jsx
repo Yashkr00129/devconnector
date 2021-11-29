@@ -3,7 +3,6 @@ import { addExperience } from "../../Store/Actions/profile";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import Spinner from "../Layout/Spinner";
-import { setAlert } from "../../Store/Actions/alert";
 import Alert from "../Layout/Alert";
 
 export default function AddExperience() {
@@ -40,7 +39,6 @@ export default function AddExperience() {
     e.preventDefault();
     try {
       await addExperience(data);
-      await setAlert("Profile Updated", "SUCCESS");
       await navigate("/");
     } catch (e) {}
   };

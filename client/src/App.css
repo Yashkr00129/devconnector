@@ -44,8 +44,17 @@ img {
   margin-top: 6rem;
   margin-bottom: 3rem;
 }
+.w-30 {
+  min-width: 30rem;
+}
 .w-20 {
-  max-width: 20rem;
+  min-width: 20rem;
+}
+.w-10 {
+  min-width: 10rem;
+}
+.w-5 {
+  min-width: 5rem;
 }
 
 .gradient {
@@ -83,6 +92,10 @@ img {
 
 .text-primary {
   color: var(--primary-color);
+}
+.text-secondary {
+  color: #2f4858;
+  font-weight: 300;
 }
 
 .text-dark {
@@ -333,10 +346,6 @@ button {
 .table td {
   padding: 1rem;
   text-align: left;
-}
-
-.table th {
-  background: var(--light-color);
 }
 
 /* Navbar */
