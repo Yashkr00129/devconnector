@@ -11,54 +11,32 @@ const profileSlice = createSlice({
   },
   reducers: {
     GET_PROFILE(state, action) {
-      const newState = {
-        ...state,
-        currentUserProfile:action.payload,
-        loading: false,
-      };
-      state = newState;
-      return state;
+      state.currentUserProfile = action.payload;
+      state.loading = false;
     },
     PROFILE_ERROR(state, action) {
-      const newState = {
-        ...state,
-        currentUserProfile: null,
-        loading: false,
-        error:action.payload
-      };
-      state = newState;
-      return state;
+      state.currentUserProfile = null;
+      state.loading = false;
+      state.error = action.payload;
     },
     GET_ALL_PROFILES(state, action) {
-      const newState = {
-        ...state,
-        allProfiles: action.payload,
-        loading: false,
-      };
-      state = newState;
-      return state;
+      state.allProfiles = action.payload;
+      state.loading = false;
     },
     CLEAR_PROFILE(state, action) {
-      const newState = {
-        currentUserProfile: null,
-        allProfiles: [],
-        repos: [],
-        loading: true,
-        error: {},
-      };
-      state = newState;
-      return state;
+      state.currentUserProfile = null;
+      state.allProfiles = [];
+      state.repos = [];
+      state.error = {};
+      state.loading = true;
     },
     UPDATE_PROFILE(state, action) {
-      const newState = {
-        ...state,
-        currentUserProfile:action.payload,
-        loading: false,
-      };
-      state = newState;
-      return state;
-    }
-    
+      state.currentUserProfile = action.payload;
+      state.loading = false;
+    },
+    GET_REPOS(state, action) {
+      state.repos = action.payload;
+    },
   },
 });
 

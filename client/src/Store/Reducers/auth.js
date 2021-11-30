@@ -9,110 +9,50 @@ const authSlice = createSlice({
     user: null,
   },
   reducers: {
-    REGISTER_SUCCESS(state, action) {
-      localStorage.setItem("token", action.payload.token);
-      const newState = {
-        ...state,
-        ...action.payload,
-        isAuthenticated: true,
-        loading: false,
-      };
-      state = newState;
-      return state;
+    REGISTER_SUCCESS(auth, action) {
+      auth.user = action.payload;
+      auth.isAuthenticated = true;
+      auth.loading = false;
     },
-    REGISTER_FAIL(state, action) {
-      localStorage.removeItem("token");
-      const newState = {
-        ...state,
-        token: null,
-        isAuthenticated: false,
-        loading: false,
-      };
-      state = newState;
-      return state;
+    REGISTER_FAIL(auth, action) {
+      auth.token = null;
+      auth.isAuthenticated = false;
+      auth.loading = false;
     },
-    USER_LOADED(state, action) {
-      const newState = {
-        ...state,
-        isAuthenticated: true,
-        loading: false,
-        user: action.payload,
-      };
-      state = newState;
-      return state;
+    USER_LOADED(auth, action) {
+      auth.isAuthenticated = true;
+      auth.loading = false;
+      auth.user = action.payload;
     },
-    AUTH_ERROR(state, action) {
-      localStorage.removeItem("token");
-      const newState = {
-        ...state,
-        token: null,
-        isAuthenticated: false,
-        loading: false,
-      };
-      state = newState;
-      return state;
+    AUTH_ERROR(auth, action) {
+      auth.token = null;
+      auth.isAuthenticated = false;
+      auth.loading = false;
     },
-    LOGIN_SUCCESS(state, action) {
-      localStorage.setItem("token", action.payload.token);
-      const newState = {
-        ...state,
-        ...action.payload,
-        isAuthenticated: true,
-        loading: false,
-      };
-      state = newState;
-      return state;
+    LOGIN_SUCCESS(auth, action) {
+      auth.token = action.payload.token;
+      auth.isAuthenticated = true;
+      auth.loading = false;
     },
-    LOGIN_FAIL(state, action) {
-      localStorage.removeItem("token");
-      const newState = {
-        ...state,
-        token: null,
-        isAuthenticated: false,
-        loading: false,
-      };
-      state = newState;
-      return state;
+    LOGIN_FAIL(auth, action) {
+      auth.token = null;
+      auth.isAuthenticated = false;
+      auth.loading = false;
     },
-    LOG_OUT(state, action) {
-      localStorage.removeItem("token");
-      const newState = {
-        ...state,
-        token: null,
-        isAuthenticated: null,
-        loading: false,
-        user: null,
-      };
-      state = newState;
-      return state;
+    LOG_OUT(auth, action) {
+      auth.token = null;
+      auth.isAuthenticated = null;
+      auth.loading = false;
+      auth.user = null;
     },
-    ACCOUNT_DELETED(state, action) {
-      localStorage.removeItem("token");
-      const newState = {
-        ...state,
-        token: null,
-        isAuthenticated: null,
-        loading: false,
-        user: null,
-      };
-      state = newState;
-      return state;
+    ACCOUNT_DELETED(auth, action) {
+      auth.token = null;
+      auth.isAuthenticated = null;
+      auth.loading = false;
+      auth.user = null;
     },
   },
 });
 
-// Extract the action creators object and the reducer
-const { actions, reducer } = authSlice;
-// Extract and export each action creator by name
-export const {
-  REGISTER_FAIL,
-  REGISTER_SUCCESS,
-  AUTH_ERROR,
-  USER_LOADED,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOG_OUT,
-  ACCOUNT_DELETED,
-} = actions;
-// Export the reducer, either as a default or named export
-export default reducer;
+export const authActions = authSlice.actions;
+export default authSlice.reducer;

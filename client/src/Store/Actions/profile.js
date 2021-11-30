@@ -3,7 +3,7 @@ import axios from "axios";
 import { profileActions } from "../Reducers/profile";
 import { setAlert } from "./alert";
 import store from "../store";
-import { ACCOUNT_DELETED } from "../Reducers/auth";
+import { authActions } from "../Reducers/auth";
 const { dispatch } = store;
 
 // Get current users profile
@@ -23,13 +23,34 @@ export const getCurrentProfile = async () => {
 
 // Get all profiles
 export const getAllProfiles = async () => {
+  dispatch(profileActions.CLEAR_PROFILE());
   try {
     const res = await axios.get("api/profile");
     await dispatch(profileActions.GET_ALL_PROFILES(res.data));
-  } catch (err) {}
+  } catch (err) {
+    dispatch(
+      profileActions.PROFILE_ERROR({
+        msg: err.response.statusText,
+        status: err.response.status,
+      })
+    );
+  }
 };
 
 // Get profile by id
+export const getProfileById = async (userId) => {
+  try {
+    const res = await axios.get(`api/profile/user/${userId}`);
+    dispatch(profileActions.GET_PROFILE(res.data));
+  } catch (error) {
+    dispatch(
+      profileActions.PROFILE_ERROR({
+        msg: error.response.statusText,
+        status: error.response.status,
+      })
+    );
+  }
+};
 
 // Create or update profile
 export const createProfile = async (formData, edit) => {
@@ -144,7 +165,7 @@ export const deleteAccount = async (id) => {
     try {
       await axios.delete(`api/profile`);
       await dispatch(profileActions.CLEAR_PROFILE());
-      await dispatch(ACCOUNT_DELETED())
+      await dispatch(authActions.ACCOUNT_DELETED());
       await setAlert("Your account has been permanently deleted");
     } catch (error) {
       dispatch(
@@ -154,5 +175,21 @@ export const deleteAccount = async (id) => {
         })
       );
     }
+  }
+};
+
+// Get Github Repos
+export const getGithubRepos = async (username) => {
+  dispatch(profileActions.CLEAR_PROFILE());
+  try {
+    const res = await axios.get(`api/profile/github/${username}`);
+    await dispatch(profileActions.GET_ALL_PROFILES(res.data));
+  } catch (err) {
+    dispatch(
+      profileActions.PROFILE_ERROR({
+        msg: err.response.statusText,
+        status: err.response.status,
+      })
+    );
   }
 };

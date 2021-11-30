@@ -12,6 +12,7 @@ import CreateProfile from "./Components/Profile-form/CreateProfile.jsx";
 import AddExperience from "./Components/Profile-form/AddExperience"
 import AddEducation from "./Components/Profile-form/AddEducation"
 
+
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }

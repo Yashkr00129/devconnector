@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Spinner from "../Spinner";
@@ -12,13 +12,14 @@ export default function Dashboard() {
   const profile = useSelector((state) => state.profile);
   const alerts = useSelector((state) => state.alert);
   const navigate = useNavigate();
-  if (auth.isAuthenticated !== true) {
-    navigate("/login");
-  }
+  useEffect(() => {
+    if (!auth.isAuthenticated) {
+      navigate("/login");
+    }
+  }, []);
   if (profile.loading === true) {
     return <Spinner />;
   }
-
   return (
     <section className="container">
       {alerts.map((alert) => (
@@ -42,20 +43,16 @@ export default function Dashboard() {
           {profile.currentUserProfile.experience.length > 0 ? (
             <Exp />
           ) : (
-            <h4 className="text-secondary">
-              You have no experience. Please add experience
-            </h4>
+            <Alert msg="You dont have any experience" color="gray" />
           )}
           {profile.currentUserProfile.education.length > 0 ? (
             <Edu />
           ) : (
-            <h4 className="text-secondary">
-              You have no education. Please add education
-            </h4>
+            <Alert msg="You dont have any education" color="gray" />
           )}
           <div onClick={() => deleteAccount()} className="my-2">
-            <button className="btn btn-danger">
-              <i className="fas fa-user-minus"> Delete My Account</i>
+            <button className="btn btn-danger delete-btn">
+              <i className="fas fa-user" /> Delete My Account
             </button>
           </div>
         </>
