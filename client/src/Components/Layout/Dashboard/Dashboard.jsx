@@ -6,17 +6,21 @@ import Alert from "../Alert";
 import Exp from "./Exp";
 import Edu from "./Edu";
 import { deleteAccount } from "../../../Store/Actions/profile";
+import { getCurrentProfile } from "../../../Store/Actions/profile";
 
 export default function Dashboard() {
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const profile = useSelector((state) => state.profile);
   const alerts = useSelector((state) => state.alert);
+  React.useEffect(() => {
+    getCurrentProfile();
+  }, []);
+  if (profile.loading || auth.loading || profile.currentUserProfile === null) {
+    return <Spinner />;
+  }
   if (auth.isAuthenticated !== true) {
     return <Navigate to="/login" />;
-  }
-  if (profile.loading||auth.loading) {
-    return <Spinner />;
   }
   return (
     <section className="container">
