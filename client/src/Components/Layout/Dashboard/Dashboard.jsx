@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, Navigate } from "react-router-dom";
 import Spinner from "../Spinner";
 import Alert from "../Alert";
 import Exp from "./Exp";
@@ -9,15 +9,13 @@ import { deleteAccount } from "../../../Store/Actions/profile";
 
 export default function Dashboard() {
   const auth = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   const profile = useSelector((state) => state.profile);
   const alerts = useSelector((state) => state.alert);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!auth.isAuthenticated) {
-      navigate("/login");
-    }
-  }, []);
-  if (profile.loading === true) {
+  if (auth.isAuthenticated !== true) {
+    return <Navigate to="/login" />;
+  }
+  if (profile.loading||auth.loading) {
     return <Spinner />;
   }
   return (
@@ -50,7 +48,13 @@ export default function Dashboard() {
           ) : (
             <Alert msg="You dont have any education" color="gray" />
           )}
-          <div onClick={() => deleteAccount()} className="my-2">
+          <div
+            onClick={() => {
+              deleteAccount();
+              navigate("/");
+            }}
+            className="my-2"
+          >
             <button className="btn btn-danger delete-btn">
               <i className="fas fa-user" /> Delete My Account
             </button>
@@ -58,7 +62,7 @@ export default function Dashboard() {
         </>
       ) : (
         <>
-          <p>You have not yet setup a profile, please add some in fo</p>
+          <p>You have not yet setup a profile, please add some info</p>
           <Link to="/create-profile" className="btn btn-primary my-1">
             Create Profile
           </Link>

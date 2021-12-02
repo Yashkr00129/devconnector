@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addEducation } from "../../Store/Actions/profile";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { useNavigate,Navigate } from "react-router";
 import Spinner from "../Layout/Spinner";
 import Alert from "../Layout/Alert";
 
@@ -40,7 +40,7 @@ export default function AddEducation() {
       } catch (e) {}
     }
   };
-  if (auth.isAuthenticated !== true) navigate("/login");
+  if (auth.isAuthenticated !== true)  return <Navigate to="/login"/>
   if (profile.loading === true) return <Spinner />;
   return (
     <section className="container">

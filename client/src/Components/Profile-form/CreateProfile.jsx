@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, Navigate } from "react-router";
 import { useSelector } from "react-redux";
 import { createProfile } from "../../Store/Actions/profile";
 import { setAlert } from "../../Store/Actions/alert";
@@ -11,10 +11,9 @@ export default function CreateProfile() {
   const alerts = useSelector((state) => state.alert);
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  if (auth.isAuthenticated !== true) {
-    navigate("/login");
-  }
-  const [formData, setFormData] = useState({ ...profile.currentUserProfile });
+  const { currentUserProfile } = profile;
+
+  const [formData, setFormData] = useState({ ...currentUserProfile });
   const {
     company,
     website,
@@ -29,15 +28,19 @@ export default function CreateProfile() {
     youtube,
     instagram,
   } = formData;
-  const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
-  if (profile.loading === true) {
+  const [displaySocialInputs, toggleSocialInputs] = useState(false);
+  if (auth.isAuthenticated !== true) {
+    return <Navigate to="/login" />;
+  }
+
+  if (profile.loading || auth.loading) {
     return <Spinner />;
   }
 
-  const onChange = (e) =>
+  const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-
+  };
   const onSubmit = async (e) => {
     e.preventDefault();
     if (skills === undefined && status === undefined) {
@@ -45,7 +48,7 @@ export default function CreateProfile() {
       return;
     } else {
       await createProfile(
-        { ...formData, skills: skills.toString() },
+        { ...formData },
         profile.currentUserProfile === false ||
           profile.currentUserProfile === null
           ? false
@@ -84,7 +87,7 @@ export default function CreateProfile() {
             type="text"
             placeholder="Company"
             name="company"
-            value={company || ""}
+            value={company}
             onChange={(e) => onChange(e)}
           />
           <small className="form-text mx-1">
@@ -96,7 +99,7 @@ export default function CreateProfile() {
             type="text"
             placeholder="Website"
             name="website"
-            value={website || ""}
+            value={website}
             onChange={(e) => onChange(e)}
           />
           <small className="form-text mx-1">
@@ -108,7 +111,7 @@ export default function CreateProfile() {
             type="text"
             placeholder="Location"
             name="location"
-            value={location || ""}
+            value={location}
             onChange={(e) => onChange(e)}
           />
           <small className="form-text mx-1">
@@ -120,7 +123,7 @@ export default function CreateProfile() {
             type="text"
             placeholder="* Skills"
             name="skills"
-            value={skills || ""}
+            value={skills}
             onChange={(e) => onChange(e)}
           />
           <small className="form-text mx-1">
@@ -175,6 +178,7 @@ export default function CreateProfile() {
                 placeholder="Twitter URL"
                 name="twitter"
                 value={twitter}
+                onChange={(e) => onChange(e)}
               />
             </div>
             <div className="form-group social-input">
@@ -184,6 +188,7 @@ export default function CreateProfile() {
                 placeholder="Facebook URL"
                 name="facebook"
                 value={facebook}
+                onChange={(e) => onChange(e)}
               />
             </div>
             <div className="form-group social-input">
@@ -193,6 +198,7 @@ export default function CreateProfile() {
                 placeholder="YouTube URL"
                 name="youtube"
                 value={youtube}
+                onChange={(e) => onChange(e)}
               />
             </div>
             <div className="form-group social-input">
@@ -202,6 +208,7 @@ export default function CreateProfile() {
                 placeholder="Linkedin URL"
                 name="linkedin"
                 value={linkedin}
+                onChange={(e) => onChange(e)}
               />
             </div>
             <div className="form-group social-input">
@@ -211,6 +218,7 @@ export default function CreateProfile() {
                 placeholder="Instagram URL"
                 name="instagram"
                 value={instagram}
+                onChange={(e) => onChange(e)}
               />
             </div>
           </>
