@@ -41,7 +41,7 @@ export const Register = () => {
   return (
     <section className="container">
       {alerts.length > 0
-        ? alerts.map((alert) => <Alert msg={alert.msg} />)
+        ? alerts.map((alert) => <Alert msg={alert.msg} key={alert.id} />)
         : null}
       <h1 className="large text-primary">Sign Up</h1>
       <p className="lead">
