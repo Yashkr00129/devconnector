@@ -1,12 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, Link, Navigate } from "react-router-dom";
-import Spinner from "../Spinner";
-import Alert from "../Alert";
+import Spinner from "../Components/Layout/Spinner";
+import Alert from "../Components/Layout/Alert";
 import Exp from "./Exp";
 import Edu from "./Edu";
-import { deleteAccount } from "../../../Store/Actions/profile";
-import { getCurrentProfile } from "../../../Store/Actions/profile";
+import {
+  deleteAccount,
+  getCurrentProfile,
+} from "../Store/Actions/profile";
 
 export default function Dashboard() {
   const auth = useSelector((state) => state.auth);
@@ -15,13 +17,14 @@ export default function Dashboard() {
   const alerts = useSelector((state) => state.alert);
   React.useEffect(() => {
     getCurrentProfile();
-  }, []);
-  if (profile.loading || auth.loading || profile.currentUserProfile === null) {
+    if (auth.isAuthenticated !== true) {
+      return <Navigate to="/login" />;
+    }
+  }, [auth]);
+  if (profile.loading || auth.loading) {
     return <Spinner />;
   }
-  if (auth.isAuthenticated !== true) {
-    return <Navigate to="/login" />;
-  }
+
   return (
     <section className="container">
       {alerts.map((alert) => (
@@ -53,9 +56,9 @@ export default function Dashboard() {
             <Alert msg="You dont have any education" color="gray" />
           )}
           <div
-            onClick={() => {
-              deleteAccount();
-              navigate("/");
+            onClick={async () => {
+              await deleteAccount();
+              await navigate("/");
             }}
             className="my-2"
           >

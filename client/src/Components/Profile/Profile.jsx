@@ -4,6 +4,10 @@ import { useParams } from "react-router";
 import Spinner from "../Layout/Spinner";
 import { getProfileById } from "../../Store/Actions/profile";
 import { Link } from "react-router-dom";
+import ProfileTop from "./ProfileTop";
+import ProfileAbout from "./ProfileAbout";
+import ProfileExperience from "./ProfileExperience";
+import ProfileEducation from "./ProfileEducation";
 
 function Profile(props) {
   const profile = useSelector((state) => state.profile);
@@ -23,11 +27,39 @@ function Profile(props) {
       {auth.isAuthenticated &&
         auth.loading === false &&
         profile.loading === false &&
-        auth.user._id ===currentUserProfile.user._id && (
+        auth.user._id === currentUserProfile.user._id && (
           <Link to="/edit-profile" className="btn btn-dark">
             Edit Profile
           </Link>
         )}
+      <div className="profile-grid my-1">
+        <ProfileTop profile={currentUserProfile} />
+        <ProfileAbout profile={currentUserProfile} />
+        <div className="profile-exp bg-white p-2">
+          <h2 className="text-primary">Experience</h2>
+          {currentUserProfile.experience.length > 0 ? (
+            <>
+              {currentUserProfile.experience.map((exp) => (
+                <ProfileExperience key={exp._id} experience={exp} />
+              ))}
+            </>
+          ) : (
+            <h4>No experience credentials</h4>
+          )}
+        </div>
+        <div className="profile-edu bg-white p-2">
+          <h2 className="text-primary">Education</h2>
+          {currentUserProfile.education.length > 0 ? (
+            <>
+              {currentUserProfile.education.map((edu) => (
+                <ProfileEducation key={edu._id} education={edu} />
+              ))}
+            </>
+          ) : (
+            <h4>No education credentials</h4>
+          )}
+        </div>
+      </div>
     </section>
   );
 }

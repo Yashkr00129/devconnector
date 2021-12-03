@@ -7,7 +7,7 @@ import { Register } from "./Components/Auth/Register.jsx";
 import { Login } from "./Components/Auth/Login.jsx";
 import { loadUser } from "./Store/Actions/auth";
 import setAuthToken from "./utils/setAuthToken";
-import Dashboard from "./Components/Layout/Dashboard/Dashboard";
+import Dashboard from "./Dashboard/Dashboard";
 import CreateProfile from "./Components/Profile-form/CreateProfile.jsx";
 import AddExperience from "./Components/Profile-form/AddExperience";
 import AddEducation from "./Components/Profile-form/AddEducation";
@@ -24,16 +24,18 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
+        {/* Public */}
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/login" element={<Login />} />
-        <Route exact path="/add-experience" element={<AddExperience />} />
-        <Route exact path="/add-education" element={<AddEducation />} />
-        <Route exact path="/create-profile" element={<CreateProfile />} />
-        <Route exact path="/edit-profile" element={<CreateProfile />} />
-        <Route exact path="/dashboard" element={<Dashboard />} />
         <Route exact path="/developers" element={<Profiles />} />
         <Route exact path="/profile/:id" element={<Profile />} />
+        {/* Private */}
+        <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route exact path="/create-profile" element={<CreateProfile />} />
+        <Route exact path="/edit-profile" element={<CreateProfile />} />
+        <Route exact path="/add-education" element={<AddEducation />} />
+        <Route exact path="/add-experience" element={<AddExperience />} />
       </Routes>
     </Router>
   );

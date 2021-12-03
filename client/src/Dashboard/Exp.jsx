@@ -1,7 +1,7 @@
 import React from "react";
 import Moment from "react-moment";
 import { useSelector } from "react-redux";
-import { deleteExperience } from "../../../Store/Actions/profile";
+import { deleteExperience } from "../Store/Actions/profile";
 
 export default function Exp() {
   const experience = useSelector((state) => state.profile).currentUserProfile

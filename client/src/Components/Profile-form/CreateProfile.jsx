@@ -13,6 +13,10 @@ export default function CreateProfile() {
   const navigate = useNavigate();
   const { currentUserProfile } = profile;
 
+  React.useEffect(() => {
+    if (auth.isAuthenticated !== true) return <Navigate to="/login" />;
+  }, [auth]);
+
   const [formData, setFormData] = useState({ ...currentUserProfile });
   const {
     company,
@@ -30,13 +34,6 @@ export default function CreateProfile() {
   } = formData;
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
-  if (auth.isAuthenticated !== true) {
-    return <Navigate to="/login" />;
-  }
-
-  if (profile.loading || auth.loading) {
-    return <Spinner />;
-  }
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -58,6 +55,9 @@ export default function CreateProfile() {
     }
   };
 
+  if (profile.loading || auth.loading ) {
+    return <Spinner />;
+  }
   return (
     <section className="container">
       <h1 className="large text-primary">Create Your Profile</h1>
