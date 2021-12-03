@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Navigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { createProfile } from "../../Store/Actions/profile";
 import { setAlert } from "../../Store/Actions/alert";
@@ -15,8 +15,8 @@ export default function CreateProfile() {
   const [formData, setFormData] = useState({ ...currentUserProfile });
 
   React.useEffect(() => {
-    if (auth.isAuthenticated !== true) return <Navigate to="/login" />;
-  }, [auth]);
+    if (auth.isAuthenticated !== true) navigate("/login");
+  }, [auth,navigate]);
 
   const {
     company,
@@ -54,7 +54,7 @@ export default function CreateProfile() {
           ? false
           : true
       );
-      // await navigate("/dashboard");
+      await navigate("/dashboard");
     }
   };
 
@@ -230,9 +230,12 @@ export default function CreateProfile() {
           <Alert msg={alert.msg} key={alert.id} />
         ))}
         <input type="submit" className="btn btn-primary my-1" />
-        <a className="btn btn-light my-1" href="/dashboard">
+        <button
+          className="btn btn-light my-1"
+          onClick={() => navigate("/dashboard")}
+        >
           Go Back
-        </a>
+        </button>
       </form>
     </section>
   );

@@ -1,11 +1,12 @@
 import React from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export const Landing = () => {
   const auth = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   if (auth.isAuthenticated === true) {
-    return <Navigate to="/dashboard" />;
+    navigate("/dashboard");
   }
 
   return (

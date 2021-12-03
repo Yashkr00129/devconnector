@@ -1,14 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, Link, Navigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Spinner from "../Components/Layout/Spinner";
 import Alert from "../Components/Layout/Alert";
 import Exp from "./Exp";
 import Edu from "./Edu";
-import {
-  deleteAccount,
-  getCurrentProfile,
-} from "../Store/Actions/profile";
+import { deleteAccount, getCurrentProfile } from "../Store/Actions/profile";
 
 export default function Dashboard() {
   const auth = useSelector((state) => state.auth);
@@ -18,9 +15,9 @@ export default function Dashboard() {
   React.useEffect(() => {
     getCurrentProfile();
     if (auth.isAuthenticated !== true) {
-      return <Navigate to="/login" />;
+      navigate("/login");
     }
-  }, [auth]);
+  }, [auth,navigate]);
   if (profile.loading || auth.loading) {
     return <Spinner />;
   }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Alert from "../Layout/Alert";
 import { setAlert } from "../../Store/Actions/alert";
 import { useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import { loadUser } from "../../Store/Actions/auth";
 export const Register = () => {
   const alerts = useSelector((state) => state.alert);
   const auth = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -35,7 +36,7 @@ export const Register = () => {
     }
   };
   if (auth.isAuthenticated === true) {
-    return <Navigate to="/dashboard" />;
+    navigate("/dashboard");
   }
 
   return (

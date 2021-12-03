@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addExperience } from "../../Store/Actions/profile";
 import { useSelector } from "react-redux";
-import { useNavigate, Navigate } from "react-router";
+import { useNavigate } from "react-router";
 import Spinner from "../Layout/Spinner";
 import Alert from "../Layout/Alert";
 
@@ -10,6 +10,9 @@ export default function AddExperience() {
   const profile = useSelector((state) => state.profile);
   const alerts = useSelector((state) => state.alert);
   const navigate = useNavigate();
+  React.useEffect(() => {
+    if (auth.isAuthenticated !== true) navigate("/login");
+  }, [auth,navigate]);
   const [formData, setFormData] = useState({
     title: "",
     company: "",
@@ -43,8 +46,7 @@ export default function AddExperience() {
     } catch (e) {}
   };
 
-  if (auth.isAuthenticated !== true) return <Navigate to="/login" />;
-  if (profile.loading||auth.loading) return <Spinner />;
+  if (profile.loading || auth.loading) return <Spinner />;
   return (
     <section className="container">
       <h1 className="large text-primary">Add An Experience</h1>

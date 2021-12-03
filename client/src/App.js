@@ -24,10 +24,11 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        {/* Public */}
+        {/* Not Possible when authnticated */}
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/login" element={<Login />} />
+        {/* Public */}
         <Route exact path="/developers" element={<Profiles />} />
         <Route exact path="/profile/:id" element={<Profile />} />
         {/* Private */}
