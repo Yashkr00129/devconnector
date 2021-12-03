@@ -12,12 +12,12 @@ export default function CreateProfile() {
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const { currentUserProfile } = profile;
+  const [formData, setFormData] = useState({ ...currentUserProfile });
 
   React.useEffect(() => {
     if (auth.isAuthenticated !== true) return <Navigate to="/login" />;
   }, [auth]);
 
-  const [formData, setFormData] = useState({ ...currentUserProfile });
   const {
     company,
     website,
@@ -37,6 +37,9 @@ export default function CreateProfile() {
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target.value.trim() === "") {
+      setFormData({ ...formData, [e.target.name]: null });
+    }
   };
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -51,11 +54,11 @@ export default function CreateProfile() {
           ? false
           : true
       );
-      await navigate("/dashboard");
+      // await navigate("/dashboard");
     }
   };
 
-  if (profile.loading || auth.loading ) {
+  if (profile.loading || auth.loading) {
     return <Spinner />;
   }
   return (

@@ -62,38 +62,26 @@ router.post(
       linkedin,
     } = req.body;
 
-    // Build profile object
-    const profileFeilds = {};
-    profileFeilds.user = req.user.id;
-    if (company) profileFeilds.company = company;
-    if (website) profileFeilds.website = website;
-    if (location) profileFeilds.location = location;
-    if (bio) profileFeilds.bio = bio;
-    if (status) profileFeilds.status = status;
-    if (githubusername) profileFeilds.githubusername = githubusername;
-    if (skills) {
-      if (typeof skills === "string")
-        profileFeilds.skills = skills.split(",").map((skill) => skill.trim());
-      if (typeof skills === "array") profileFeilds.skills = skills;
-    }
-
     // Build Social object
-    profileFeilds.social = {};
-    if (youtube) profileFeilds.social.youtube = youtube;
-    if (twitter) profileFeilds.social.twitter = twitter;
-    if (facebook) profileFeilds.social.facebook = facebook;
-    if (linkedin) profileFeilds.social.linkedin = linkedin;
-    if (instagram) profileFeilds.social.instahgram = instagram;
+    const social = {};
+    if (youtube) social.youtube = youtube;
+    if (twitter) social.twitter = twitter;
+    if (facebook) social.facebook = facebook;
+    if (linkedin) social.linkedin = linkedin;
+    if (instagram) social.instahgram = instagram;
 
     try {
       let profile = await Profile.findOne({ user: req.user.id });
       if (profile) {
-        // Update
-        profile = await Profile.findOneAndUpdate(
-          { user: req.user.id },
-          { $set: profileFeilds },
-          { new: true }
-        );
+        profile.skills = skills;
+        profile.githubusername = githubusername;
+        profile.status = status;
+        profile.bio = bio;
+        profile.location = location;
+        profile.website = website;
+        profile.company = company;
+        profile.social = { ...social };
+        await profile.save();
         return res.json(profile);
       }
       profile = new Profile(profileFeilds);
