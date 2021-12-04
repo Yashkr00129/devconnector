@@ -21,7 +21,6 @@ export default function Dashboard() {
   if (profile.loading || auth.loading) {
     return <Spinner />;
   }
-
   return (
     <section className="container">
       {alerts.map((alert) => (

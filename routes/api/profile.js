@@ -84,7 +84,17 @@ router.post(
         await profile.save();
         return res.json(profile);
       }
-      profile = new Profile(profileFeilds);
+      profile = new Profile({
+        user: req.user.id,
+        skills,
+        githubusername,
+        status,
+        bio,
+        location,
+        website,
+        company,
+        social,
+      });
       await profile.save();
       res.json(profile);
     } catch (err) {
