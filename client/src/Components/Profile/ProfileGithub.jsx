@@ -1,24 +1,18 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { getGithubRepos } from "../../Store/Actions/profile";
-import Spinner from "../Layout/Spinner";
 
-function ProfileGithub({ username, getGithubRepos, repos }) {
+function ProfileGithub({ username }) {
+  const repos = useSelector((state) => state.profile).repos;
   useEffect(() => {
     getGithubRepos(username);
-    console.log('Profile not loading')
-  }, [getGithubRepos,username]);
-  return <div></div>;
+  }, [username]);
+  return <div>Fuck</div>;
 }
 
 ProfileGithub.propTypes = {
-  getGithubRepos: PropTypes.func.isRequired,
-  repos: PropTypes.array,
   username: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  repos: state.profile.repos,
-});
-export default connect(mapStateToProps, { getGithubRepos })(ProfileGithub);
+export default ProfileGithub;

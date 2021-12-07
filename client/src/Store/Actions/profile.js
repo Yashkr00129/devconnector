@@ -62,8 +62,10 @@ export const createProfile = async (formData, edit) => {
     };
     const res = await axios.post("api/profile", formData, config);
     await dispatch(profileActions.GET_PROFILE(res.data));
+    console.log(res.data);
     await setAlert(edit === true ? "Profile Updated" : "Profile Created");
   } catch (error) {
+    console.log(error.message);
     dispatch(
       profileActions.PROFILE_ERROR({
         msg: error.response.statusText,
@@ -180,10 +182,11 @@ export const deleteAccount = async (id) => {
 
 // Get Github Repos
 export const getGithubRepos = async (username) => {
-  dispatch(profileActions.CLEAR_PROFILE());
+  const url = `/api/github/${username}`;
+  console.log(url);
   try {
-    const res = await axios.get(`api/profile/github/${username}`);
-    await dispatch(profileActions.GET_ALL_PROFILES(res.data));
+    const res = await axios.get(url);
+    dispatch(profileActions.GET_REPOS(res.data));
   } catch (err) {
     dispatch(
       profileActions.PROFILE_ERROR({

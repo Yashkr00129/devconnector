@@ -16,30 +16,27 @@ export default function CreateProfile() {
 
   React.useEffect(() => {
     if (auth.isAuthenticated !== true) navigate("/login");
-  }, [auth,navigate]);
+  }, [auth, navigate]);
 
   const {
-    company,
-    website,
-    location,
-    status,
-    skills,
-    githubusername,
-    bio,
-    twitter,
-    facebook,
-    linkedin,
-    youtube,
-    instagram,
+    company = null,
+    website = null,
+    location = null,
+    status = null,
+    skills = null,
+    githubusername = null,
+    bio = "",
+    twitter = null,
+    facebook = null,
+    linkedin = null,
+    youtube = null,
+    instagram = null,
   } = formData;
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (e.target.value.trim() === "") {
-      setFormData({ ...formData, [e.target.name]: null });
-    }
   };
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +45,12 @@ export default function CreateProfile() {
       return;
     } else {
       await createProfile(
-        { ...formData },
+        {
+          ...formData,
+          skills: skills.reduce((first, second) => {
+            return `${first},${second}`;
+          }),
+        },
         profile.currentUserProfile === false ||
           profile.currentUserProfile === null
           ? false

@@ -5,9 +5,11 @@ import { useSelector } from "react-redux";
 export const Landing = () => {
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  if (auth.isAuthenticated === true) {
-    navigate("/dashboard");
-  }
+  React.useEffect(() => {
+    if (auth.isAuthenticated === true) {
+      navigate("/dashboard");
+    }
+  }, [auth, navigate]);
 
   return (
     <section className="landing">

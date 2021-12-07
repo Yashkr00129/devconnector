@@ -14,10 +14,11 @@ function Profile(props) {
   const profile = useSelector((state) => state.profile);
   const auth = useSelector((state) => state.auth);
   const params = useParams();
+  const { currentUserProfile } = profile;
   useEffect(() => {
     getProfileById(params.id);
   }, [params]);
-  const { currentUserProfile } = profile;
+
   if (profile.loading || profile.currentUserProfile === null)
     return <Spinner />;
   return (
@@ -60,7 +61,11 @@ function Profile(props) {
             <h4>No education credentials</h4>
           )}
         </div>
-        {currentUserProfile.githubusername && <ProfileGithub username="currentUserProfile.githubusername"/>}
+        {currentUserProfile.githubusername && (
+          <ProfileGithub
+            username={currentUserProfile.githubusername}
+          />
+        )}
       </div>
     </section>
   );
