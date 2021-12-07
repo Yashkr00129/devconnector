@@ -8,6 +8,7 @@ import ProfileTop from "./ProfileTop";
 import ProfileAbout from "./ProfileAbout";
 import ProfileExperience from "./ProfileExperience";
 import ProfileEducation from "./ProfileEducation";
+import ProfileGithub from "./ProfileGithub";
 
 function Profile(props) {
   const profile = useSelector((state) => state.profile);
@@ -59,6 +60,7 @@ function Profile(props) {
             <h4>No education credentials</h4>
           )}
         </div>
+        {currentUserProfile.githubusername && <ProfileGithub username="currentUserProfile.githubusername"/>}
       </div>
     </section>
   );

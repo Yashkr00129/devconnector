@@ -9,6 +9,11 @@ export const Login = () => {
   const auth = useSelector((state) => state.auth);
   const alerts = useSelector((state) => state.alert);
   const navigate = useNavigate();
+  React.useEffect(() => {
+    if (auth.isAuthenticated === true) {
+      navigate("/dashboard");
+    }
+  }, [auth, navigate]);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -26,9 +31,6 @@ export const Login = () => {
       console.error(err.message);
     }
   };
-  if (auth.isAuthenticated === true) {
-    navigate("/dashboard");
-  }
 
   return (
     <section className="container">
