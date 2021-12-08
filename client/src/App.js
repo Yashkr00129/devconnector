@@ -7,12 +7,13 @@ import { Register } from "./Components/Auth/Register.jsx";
 import { Login } from "./Components/Auth/Login.jsx";
 import { loadUser } from "./Store/Actions/auth";
 import setAuthToken from "./utils/setAuthToken";
-import Dashboard from "./Dashboard/Dashboard";
+import Dashboard from "./Components/Dashboard/Dashboard";
 import CreateProfile from "./Components/Profile-form/CreateProfile.jsx";
 import AddExperience from "./Components/Profile-form/AddExperience";
 import AddEducation from "./Components/Profile-form/AddEducation";
 import Profiles from "./Components/Profiles/Profiles";
 import Profile from "./Components/Profile/Profile";
+import Posts from "./Components/Posts/Posts";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
@@ -37,6 +38,7 @@ function App() {
         <Route exact path="/edit-profile" element={<CreateProfile />} />
         <Route exact path="/add-education" element={<AddEducation />} />
         <Route exact path="/add-experience" element={<AddExperience />} />
+        <Route exact path="/posts" element={<Posts />} />
       </Routes>
     </Router>
   );

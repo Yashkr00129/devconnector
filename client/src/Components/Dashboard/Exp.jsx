@@ -1,7 +1,7 @@
 import React from "react";
 import Moment from "react-moment";
 import { useSelector } from "react-redux";
-import { deleteExperience } from "../Store/Actions/profile";
+import { deleteExperience } from "../../Store/Actions/profile";
 
 export default function Exp() {
   const experience = useSelector((state) => state.profile).currentUserProfile
@@ -32,7 +32,12 @@ export default function Exp() {
                 )}
               </td>
               <td>
-                <button onClick={()=>deleteExperience(exp._id)} className="btn btn-danger">Delete</button>
+                <button
+                  onClick={() => deleteExperience(exp._id)}
+                  className="btn btn-danger"
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

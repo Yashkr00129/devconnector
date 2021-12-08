@@ -1,7 +1,7 @@
 import React from "react";
 import Moment from "react-moment";
 import { useSelector } from "react-redux";
-import { deleteEducation } from "../Store/Actions/profile";
+import { deleteEducation } from "../../Store/Actions/profile";
 
 export default function Edu() {
   const education = useSelector((state) => state.profile).currentUserProfile
