@@ -521,7 +521,7 @@ button {
 
 .post {
   display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-columns: 1fr 4fr 1.5fr;
   grid-gap: 2rem;
   align-items: center;
 }

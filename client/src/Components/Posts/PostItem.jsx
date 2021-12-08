@@ -9,6 +9,7 @@ function PostItem({
   post: { _id, text, name, avatar, user, likes, comments, date },
 }) {
   const auth = useSelector((state) => state.auth);
+  const likedClass = "fas fa-heart color-red";
   return (
     <>
       {" "}
@@ -33,7 +34,13 @@ function PostItem({
             }
             className="btn btn-light"
           >
-            <i className="far fa-heart"></i>{" "}
+            <i
+              className={
+                likes.filter((like) => like.user === auth.user._id).length > 0
+                  ? likedClass
+                  : "far fa-heart"
+              }
+            ></i>{" "}
             {likes.length > 0 && <span>{likes.length}</span>}
           </button>
           <Link to={`/post/${_id}`} className="btn btn-primary">

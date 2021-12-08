@@ -91,11 +91,13 @@ router.delete("/:id", auth, async (req, res) => {
 // access  Private
 router.put("/like/:id", auth, async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.id).catch((e) =>
+      console.log(e.message)
+    );
     // Check if post has already been liked by user
     if (
-      post.likes.filter((like) => like.user === req.user.id).length > 0
-      // This expression checks if in the post.likes array has the id of the current user
+      post.likes.filter((like) => like.user.toString() === req.user.id).length >
+      0
     )
       return res.status(400).json({ msg: "Post already liked" });
     post.likes.unshift({ user: req.user.id });
@@ -124,13 +126,14 @@ router.put("/unlike/:id", auth, async (req, res) => {
       return res
         .status(400)
         .json({ msg: "Post needs to be liked in order to be disliked" });
+    } else {
+      const index = post.likes.findIndex(
+        (like) => like.user.toString() === req.user.id
+      );
+      post.likes.splice(index, 1);
+      post.save();
+      res.json(post.likes);
     }
-    const index = post.likes.findIndex(
-      (like) => like.user.toString() === req.user.id
-    );
-    post.likes.splice(index, 1);
-    post.save();
-    res.json(post.likes);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
