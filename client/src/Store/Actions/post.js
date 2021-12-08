@@ -18,3 +18,32 @@ export const getPosts = async () => {
     );
   }
 };
+
+// Like Posts
+export const likePost = async (postId) => {
+  try {
+    const res = await axios.put(`api/posts/like/${postId}`);
+    await dispatch(postActions.UPDATE_LIKES({id:postId,likes:res.data}));
+  } catch (err) {
+    dispatch(
+      postActions.POST_ERROR({
+        msg: err.response.statusText,
+        status: err.response.status,
+      })
+    );
+  }
+};
+// Like Posts
+export const unlikePost = async (postId) => {
+  try {
+    const res = await axios.put(`api/posts/unlike/${postId}`);
+    await dispatch(postActions.UPDATE_LIKES({id:postId,likes:res.data}));
+  } catch (err) {
+    dispatch(
+      postActions.POST_ERROR({
+        msg: err.response.statusText,
+        status: err.response.status,
+      })
+    );
+  }
+};

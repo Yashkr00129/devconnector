@@ -17,6 +17,13 @@ const postSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
+    UPDATE_LIKES(state, action) {
+      state.posts = state.posts.map((post) =>
+        post._id === action.payload.id
+          ? { ...post, likes: action.payload.likes }
+          : post
+      );
+    },
   },
 });
 

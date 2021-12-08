@@ -198,6 +198,9 @@ img {
   color: #333;
 }
 
+.color-pink {
+  color: var(--danger-color);
+}
 .btn-primary,
 .bg-primary,
 .badge-primary,
