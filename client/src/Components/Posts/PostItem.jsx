@@ -3,12 +3,18 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import { useSelector } from "react-redux";
-import { likePost, unlikePost } from "../../Store/Actions/post";
+import {
+  likePost,
+  unlikePost,
+  dislikePost,
+  unDislikePost,
+} from "../../Store/Actions/post";
 
 function PostItem({
-  post: { _id, text, name, avatar, user, likes, comments, date },
+  post: { _id, text, name, avatar, user, likes, comments, date, dislikes },
 }) {
   const auth = useSelector((state) => state.auth);
+
   return (
     <>
       {" "}
@@ -46,10 +52,17 @@ function PostItem({
           </button>
           <button
             type="button"
-            // onClick={(e) => dislikePost(_id)}
+            onClick={(e) =>
+              dislikes.filter(
+                (dislike) => dislike.user === auth.user._id.toString()
+              ).length > 0
+                ? unDislikePost(_id)
+                : dislikePost(_id)
+            }
             className="btn btn-light"
           >
             <i className="fas fa-thumbs-down"></i>
+            {dislikes.length > 0 && <span>{dislikes.length}</span>}
           </button>
           <Link to={`/post/${_id}`} className="btn btn-primary">
             Discussion{" "}
@@ -57,9 +70,11 @@ function PostItem({
               <span className="comment-count">{comments.length}</span>
             )}
           </Link>
+        </div>
+        <div className="delete">
           {!auth.loading && user === auth.user._id && (
-            <button type="button" className="btn btn-danger">
-              <i className="fas fa-times"></i>
+            <button type="button" className="btn btn-danger delete-btn">
+              <i className="fas fa-trash-alt"> </i> Delete Post
             </button>
           )}
         </div>

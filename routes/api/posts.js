@@ -108,6 +108,55 @@ router.put("/like/:id", auth, async (req, res) => {
   }
 });
 
+// @route  PUT api/posts/dislike/:id
+// @desc   Like one post
+// access  Private
+router.put("/dislike/:id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    // Check if post has already been disliked by user
+    if (
+      post.dislikes.filter((dislike) => dislike.user.toString() === req.user.id)
+        .length > 0
+      // This expression checks if in the post.dislikes array has the id of the current user
+    )
+      return res.status(400).json({ msg: "Post already disliked" });
+    post.dislikes.unshift({ user: req.user.id });
+    await post.save();
+    res.json(post.dislikes);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// @route  PUT api/posts/dislike/:id
+// @desc   Undislike one post
+// access  Private
+router.put("/undislike/:id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    // Check if a post is not disliked
+    if (
+      !post.dislikes.filter(
+        (dislike) => dislike.user.toString() === req.user.id
+      ).length > 0
+    ) {
+      // Post not disliked
+      return res
+        .status(400)
+        .json({ msg: "Post needs to be disliked in order to be disdisliked" });
+    }
+    const index = post.dislikes.findIndex((dislike) => dislike == req.user.id);
+    post.dislikes.splice(index, 1);
+    post.save();
+    res.json(post.dislikes);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 // @route  PUT api/posts/like/:id
 // @desc   Unlike one post
 // access  Private

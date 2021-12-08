@@ -24,6 +24,18 @@ const postSlice = createSlice({
           : post
       );
     },
+    UPDATE_DISLIKES(state, action) {
+      state.posts = state.posts.map((post) =>
+        post._id === action.payload.id
+          ? { ...post, dislikes: action.payload.dislikes }
+          : post
+      );
+    },
+    DELETE_POST(state, action) {
+      state.posts = state.posts.filter(
+        (post) => post._id !== action.payload.id
+      );
+    },
   },
 });
 

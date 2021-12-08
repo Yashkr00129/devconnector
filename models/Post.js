@@ -22,6 +22,13 @@ const PostSchema = new Schema({
       },
     },
   ],
+  dislikes: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+      },
+    },
+  ],
   comments: [
     {
       user: {

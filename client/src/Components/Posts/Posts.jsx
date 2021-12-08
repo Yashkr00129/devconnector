@@ -10,10 +10,10 @@ function Posts() {
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
   useEffect(() => {
-    if (auth.isAuthenticated !== true) return navigate("/login");
     getPosts();
-  }, [auth, navigate]);
-  if (post.loading) return <Spinner />;
+  }, []);
+  if (post.loading || auth.loading) return <Spinner />;
+  if (auth.isAuthenticated !== true) return navigate("/login");
   return (
     <section className="container">
       <h1 className="large text-primary">Posts</h1>
