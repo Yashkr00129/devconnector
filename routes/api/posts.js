@@ -94,8 +94,7 @@ router.put("/like/:id", auth, async (req, res) => {
     const post = await Post.findById(req.params.id);
     // Check if post has already been liked by user
     if (
-      post.likes.filter((like) => like.user.toString() === req.user.id).length >
-      0
+      post.likes.filter((like) => like.user === req.user.id).length > 0
       // This expression checks if in the post.likes array has the id of the current user
     )
       return res.status(400).json({ msg: "Post already liked" });
@@ -118,13 +117,17 @@ router.put("/unlike/:id", auth, async (req, res) => {
     if (
       !post.likes.filter((like) => like.user.toString() === req.user.id)
         .length > 0
+      // array of likes with current user
     ) {
       // Post not liked
+      console.log("fuck");
       return res
         .status(400)
         .json({ msg: "Post needs to be liked in order to be disliked" });
     }
-    const index = post.likes.findIndex((like) => like == req.user.id);
+    const index = post.likes.findIndex(
+      (like) => like.user.toString() === req.user.id
+    );
     post.likes.splice(index, 1);
     post.save();
     res.json(post.likes);
