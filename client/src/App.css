@@ -197,7 +197,9 @@ img {
   background: var(--light-color);
   color: #333;
 }
-
+.color-red {
+  color: var(--danger-color);
+}
 .btn-primary,
 .bg-primary,
 .badge-primary,
@@ -519,7 +521,7 @@ button {
 
 .post {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 4fr 1fr;
   grid-gap: 2rem;
   align-items: center;
 }
@@ -544,6 +546,14 @@ button {
   color: #aaa;
   font-size: 0.8rem;
   margin-bottom: 0.5rem;
+}
+.post .delete {
+  height: 97%;
+  display: flex;
+  align-items: flex-end;
+}
+.post .delete .delete-btn {
+  color: var(--danger-color);
 }
 
 /* Mobile Styles */
@@ -645,4 +655,9 @@ section.loading {
   border-radius: 2px;
   font-weight: 300;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.no-outline {
+  outline: none;
+  border: none;
 }

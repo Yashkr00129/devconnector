@@ -24,10 +24,10 @@ function PostItem({
             Posted on <Moment format="YYYY/MM/DD">{date}</Moment>
           </p>
           <button type="button" className="btn btn-light">
-            <i className="fas fa-thumbs-up"></i>{" "}
+            <i className="far fa-heart"></i>{" "}
             {likes.length > 0 && <span>{likes.length}</span>}
           </button>
-          <button type="button" className="btn btn-light">
+          <button type="button" className="btn bg-white">
             <i className="fas fa-thumbs-down"></i>
           </button>
           <Link to={`/post/${_id}`} className="btn btn-primary">
@@ -36,9 +36,12 @@ function PostItem({
               <span className="comment-count">{comments.length}</span>
             )}
           </Link>
+        </div>
+        <div className="delete">
           {!auth.loading && user === auth.user._id && (
-            <button type="button" className="btn btn-danger">
-              <i className="fas fa-times"></i>
+            <button className="bg-white btn delete-btn no-outline">
+              <i className="far fa-trash-alt "></i>
+              <span> Delete Post</span>
             </button>
           )}
         </div>
