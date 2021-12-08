@@ -44,13 +44,18 @@ export default function CreateProfile() {
       setAlert("Skills and Status are required", "FAIL");
       return;
     } else {
+      const skillsValue =
+        typeof skills !== "string"
+          ? skills.reduce((first, second) => {
+              return `${first},${second}`;
+            })
+          : skills;
       await createProfile(
         {
           ...formData,
-          skills: skills.reduce((first, second) => {
-            return `${first},${second}`;
-          }),
+          skills: skillsValue,
         },
+
         profile.currentUserProfile === false ||
           profile.currentUserProfile === null
           ? false
