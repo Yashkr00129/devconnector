@@ -14,9 +14,11 @@ import AddEducation from "./Components/Profile-form/AddEducation";
 import Profiles from "./Components/Profiles/Profiles";
 import Profile from "./Components/Profile/Profile";
 import Posts from "./Components/Posts/Posts";
+import Post from "./Components/Post/Post.jsx"
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
+
 function App() {
   useEffect(() => {
     loadUser();
@@ -39,6 +41,7 @@ function App() {
         <Route exact path="/add-education" element={<AddEducation />} />
         <Route exact path="/add-experience" element={<AddExperience />} />
         <Route exact path="/posts" element={<Posts />} />
+        <Route exact path="/post/:id" element={<Post />} />
       </Routes>
     </Router>
   );

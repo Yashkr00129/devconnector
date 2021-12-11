@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { getPosts } from "../../Store/Actions/post";
 import Spinner from "../Layout/Spinner";
 import { useNavigate } from "react-router";
+import PostForm from "./PostForm";
 import PostItem from "./PostItem";
 
 function Posts() {
@@ -11,9 +12,9 @@ function Posts() {
   const navigate = useNavigate();
   useEffect(() => {
     getPosts();
-  }, []);
+    if (auth.isAuthenticated !== true) navigate("/login");
+  }, [auth, navigate]);
   if (post.loading || auth.loading) return <Spinner />;
-  if (auth.isAuthenticated !== true) return navigate("/login");
   return (
     <section className="container">
       <h1 className="large text-primary">Posts</h1>
@@ -21,6 +22,7 @@ function Posts() {
         <i className="fas fa-user">Welcome to the community</i>
       </p>
       {/* PostForm */}
+      <PostForm />
       <div className="posts">
         {post.posts.map((post) => {
           return <PostItem key={post._id} post={post} />;

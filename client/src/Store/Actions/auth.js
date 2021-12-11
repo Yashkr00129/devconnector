@@ -18,7 +18,6 @@ export const loadUser = async () => {
       await getCurrentProfile();
     } catch (err) {
       dispatch(authActions.AUTH_ERROR());
-      console.log(err.message);
     }
   }
 };

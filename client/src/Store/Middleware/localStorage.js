@@ -19,7 +19,7 @@ const LocalStorageMiddleware =
       localStorage.removeItem("token");
       return next(action);
     }
-    console.log(action.type);
+    console.log(action.type, action.payload);
     return next(action);
   };
 

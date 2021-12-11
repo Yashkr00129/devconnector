@@ -61,7 +61,6 @@ router.post(
       instagram,
       linkedin,
     } = req.body;
-    console.log(skills);
 
     // Build Social object
     const social = {};

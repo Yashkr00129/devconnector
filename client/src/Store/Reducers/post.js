@@ -25,6 +25,18 @@ const postSlice = createSlice({
       );
       state.loading = false;
     },
+    DELETE_POST(state, action) {
+      state.posts = state.posts.filter((post) => post._id !== action.payload);
+      state.loading = false;
+    },
+    ADD_POST(state, action) {
+      state.posts.unshift(action.payload);
+      state.loading = false;
+    },
+    GET_POST(state, action) {
+      state.post = action.payload;
+      state.loading = false;
+    },
   },
 });
 

@@ -171,7 +171,6 @@ router.put("/unlike/:id", auth, async (req, res) => {
       // array of likes with current user
     ) {
       // Post not liked
-      console.log("fuck");
       return res
         .status(400)
         .json({ msg: "Post needs to be liked in order to be disliked" });
