@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { addPost } from "../../Store/Actions/post";
+import { addComment } from "../../Store/Actions/post";
 
-export default function PostForm() {
-  const [text, setText] = useState("");
+function CommentForm({postId}) {
+  const [text, setText] = useState();
   return (
     <div className="post-form">
-      <h3 className="text-primary">Say Something...</h3>
+      <h3 className="text-primary">Leave a Comment</h3>
       <form
         className="form my-1"
         onSubmit={async (e) => {
           e.preventDefault();
-          await addPost({ text });
+          await addComment(postId, { text });
           await setText("");
         }}
       >
@@ -18,7 +18,7 @@ export default function PostForm() {
           name="text"
           cols="30"
           rows="5"
-          placeholder="Create a post"
+          placeholder="Leave a comment"
           required
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -28,3 +28,9 @@ export default function PostForm() {
     </div>
   );
 }
+
+CommentForm.propTypes = {
+
+};
+
+export default CommentForm;

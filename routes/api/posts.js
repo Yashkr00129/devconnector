@@ -226,7 +226,7 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
   try {
     // Get Comment
     const post = await Post.findById(req.params.id);
-    const comments = post.comments;
+    let comments = post.comments;
     // Check if it is users comment
     const comment = comments.find((c) => c.id == req.params.comment_id);
     if (!comment) return res.status(404).json({ msg: "No Comment Like this" });

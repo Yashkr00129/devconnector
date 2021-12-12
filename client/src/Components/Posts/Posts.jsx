@@ -12,7 +12,7 @@ function Posts() {
   const navigate = useNavigate();
   useEffect(() => {
     getPosts();
-    if (auth.isAuthenticated !== true) navigate("/login");
+    if (!auth.loading && auth.isAuthenticated !== true) navigate("/login");
   }, [auth, navigate]);
   if (post.loading || auth.loading) return <Spinner />;
   return (

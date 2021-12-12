@@ -1,3 +1,4 @@
 node_modules/
 config/Routes.txt
 .idea/
+.vscode/

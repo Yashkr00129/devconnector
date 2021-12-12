@@ -183,7 +183,7 @@ export const getGithubRepos = async (username) => {
   const url = `/api/github/${username}`;
   try {
     const res = await axios.get(url);
-    dispatch(profileActions.GET_REPOS(res.data));
+    await dispatch(profileActions.GET_REPOS(res.data));
   } catch (err) {
     dispatch(
       profileActions.PROFILE_ERROR({

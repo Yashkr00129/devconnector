@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
@@ -15,8 +15,8 @@ function PostItem({
     likes,
     comments,
     date,
-    showActions = true,
   },
+  showActions = true
 }) {
   const auth = useSelector((state) => state.auth);
   return (
@@ -65,19 +65,24 @@ function PostItem({
             </>
           )}
         </div>
-        <div className="delete">
-          {!auth.loading && user === auth.user._id && (
-            <button
-              onClick={() => {
-                deletePost(_id);
-              }}
-              className="bg-white btn delete-btn no-outline"
-            >
-              <i className="far fa-trash-alt "></i>
-              <span> Delete Post</span>
-            </button>
-          )}
-        </div>
+        {showActions && (
+          <>
+            {" "}
+            <div className="delete">
+              {!auth.loading && user === auth.user._id && (
+                <button
+                  onClick={() => {
+                    deletePost(_id);
+                  }}
+                  className="bg-white btn delete-btn no-outline"
+                >
+                  <i className="far fa-trash-alt "></i>
+                  <span> Delete Post</span>
+                </button>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </>
   );

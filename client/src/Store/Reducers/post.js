@@ -37,6 +37,14 @@ const postSlice = createSlice({
       state.post = action.payload;
       state.loading = false;
     },
+    ADD_COMMENT(state, action) {
+      state.post.comments = action.payload;
+      state.loading = false;
+    },
+    REMOVE_COMMENT(state, action) {
+
+      state.post.comments =action.payload
+    },
   },
 });
 
