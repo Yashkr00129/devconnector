@@ -2,3 +2,4 @@ node_modules/
 config/Routes.txt
 .idea/
 .vscode/
+config/default.json
