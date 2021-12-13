@@ -9,7 +9,6 @@ export default function Profiles() {
   useEffect(() => {
     getAllProfiles();
   }, []);
-
   if (profile.loading) return <Spinner />;
   return (
     <section className="container">

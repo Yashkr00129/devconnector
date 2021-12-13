@@ -18,20 +18,19 @@ export default function CreateProfile() {
         if (!auth.loading && auth.isAuthenticated !== true) navigate("/login");
     }, [auth, navigate]);
     const {
-        company = null,
-        website = null,
-        location = null,
-        status = null,
-        skills = null,
-        githubusername = null,
-        bio = "",
-        twitter = null,
-        facebook = null,
-        linkedin = null,
-        youtube = null,
-        instagram = null,
+        company,
+        website,
+        location,
+        status,
+        skills = "",
+        githubusername,
+        bio,
+        twitter,
+        facebook,
+        linkedin,
+        youtube,
+        instagram,
     } = formData;
-
 
     const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
@@ -40,7 +39,7 @@ export default function CreateProfile() {
     };
     const onSubmit = async (e) => {
         e.preventDefault();
-        if (skills === undefined && status === undefined) {
+        if (skills === undefined || skills === "" || status === "0") {
             setAlert("Skills and Status are required", "FAIL");
             return;
         } else {
