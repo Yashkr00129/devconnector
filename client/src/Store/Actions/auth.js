@@ -13,10 +13,11 @@ export const loadUser = async () => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
     try {
-      const res = await axios.get("api/auth");
+      const res = await axios.get("/api/auth");
       await dispatch(authActions.USER_LOADED(res.data));
       await getCurrentProfile();
     } catch (err) {
+      console.log(err.message)
       dispatch(authActions.AUTH_ERROR());
     }
   }

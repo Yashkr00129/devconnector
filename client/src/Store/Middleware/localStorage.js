@@ -3,7 +3,7 @@ const LocalStorageMiddleware =
   (next) =>
   (action) => {
     if (
-      action.type === "auth/LOGIN_SUCCESS" ||
+      action.type === "auth/LOGIN_SUCCESS" || 
       action.type === "auth/REGISTER_SUCCESS"
     ) {
       localStorage.setItem("token", action.payload.token);
@@ -19,7 +19,6 @@ const LocalStorageMiddleware =
       localStorage.removeItem("token");
       return next(action);
     }
-    console.log(action.type, action.payload);
     return next(action);
   };
 

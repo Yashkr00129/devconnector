@@ -2,13 +2,10 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Spinner from "../Layout/Spinner";
 import { getAllProfiles } from "../../Store/Actions/profile";
-// import { useNavigate, Navigate } from "react-router";
 import ProfileItem from "./ProfileItem";
 
 export default function Profiles() {
   const profile = useSelector((state) => state.profile);
-  // const auth = useSelector((state) => state.auth);
-  // const navigate = useNavigate();
   useEffect(() => {
     getAllProfiles();
   }, []);
