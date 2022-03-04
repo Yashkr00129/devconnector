@@ -32,6 +32,6 @@ In this project @reduxjs/toolkit library was used for state management to displa
 
 If you dont have the jwt token in your localstorage and you try to access a page that is protected , you will just be redirected to the login page.
 After logging in you are not allowed to view the login ,register or the landing page.
-The state of the navbar depends on the authentication state in redux.
+The state of the navbar depends on the authentication state in redux. 
 
 
