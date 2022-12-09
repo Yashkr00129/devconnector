@@ -6,7 +6,6 @@ const User = require("../../models/User");
 const Post = require("../../models/Post");
 const { check, validationResult } = require("express-validator");
 const axios = require("axios");
-const config = require("config");
 
 // @route  GET api/profile/me
 // @desc   Get Current Users profile
