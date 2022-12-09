@@ -5,7 +5,7 @@ const config = require("config")
 const axios = require("axios")
 
 const octokit = new Octokit({
-    auth:config.get('githubToken'),
+    auth:process.env.githubToken||config.get('githubToken'),
 });
 // @route  GET api/github/:username
 // @desc   Get user repos from github
